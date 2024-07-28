@@ -50,3 +50,6 @@
 
 ## 参考
 https://ss.sangetsu.co.jp/LD1_vintage/
+
+### 画面遷移図
+Figma：https://www.figma.com/design/DxExmpwSC8UGBsqDwU7Wpa/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&t=3jjMGAuGUZJXpFxU-0
