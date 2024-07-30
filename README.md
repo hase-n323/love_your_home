@@ -48,8 +48,57 @@
 - mainpageでイメージシュミレーションにはThree.jsを使ってみたいと考えています。
 - 可能であれば楽天APIを使ってシュミレーションに関連する素材を表示するように出来たらと思っています。
 
-## 参考
+### 参考
 https://ss.sangetsu.co.jp/LD1_vintage/
 
-### 画面遷移図
+## 画面遷移図
 Figma：https://www.figma.com/design/DxExmpwSC8UGBsqDwU7Wpa/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&t=3jjMGAuGUZJXpFxU-0
+
+## ER図
+
+```mermaid
+erDiagram
+    users ||--|{ interior_images : "ユーザーは複数のインテリアイメージを作成できる"
+    users ||--|{ bookmarks : "ユーザーは複数のインテリアイメージをブックマークできる"
+    bookmarks ||--|{ interior_images : "ブックマークは複数のインテリアイメージを持つことができる"
+    interior_images ||--|{ floars : "インテリアイメージは複数の床を持つことが出来る"
+    interior_images ||--|{ wallpapers : "インテリアイメージは複数のクロスを持つことが出来る"
+
+    users {
+      bigint id PK
+      string name "ユーザー名"
+      string email "メールアドレス"
+      string crypted_password "暗号化パスワード"
+      timestamp created_at "作成日"
+      timestamp updated_at "更新日"
+    }
+    interior_images {
+      bigint id PK "イメージ画像ID"
+      bigint user_id FK "ユーザーID"
+      bigint floar_id FK "床ID"
+      bigint wallpaper_id FK "クロスID"
+      timestamp created_at "作成日"
+      timestamp updated_at "更新日"
+    }
+    floars {
+      bigint id PK "床ID"
+      bigint interior_image_id FK "イメージ画像ID"
+      string name "床品番"
+      timestamp created_at "作成日"
+      timestamp updated_at "更新日"
+    }
+    wallpapers {
+      bigint id PK "クロスID"
+      bigint interior_image_id FK "イメージ画像ID"
+      string name "クロス品番"
+      timestamp created_at "作成日"
+      timestamp updated_at "更新日"
+    }
+    bookmarks {
+      bigint id PK "ブックマークID"
+      bigint user_id FK "ユーザーID"
+      bigint interior_image_id FK "イメージ画像ID"
+      timestamp created_at "作成日"
+      timestamp updated_at "更新日"
+    }
+
