@@ -58,11 +58,11 @@ Figma：https://www.figma.com/design/DxExmpwSC8UGBsqDwU7Wpa/%E7%94%BB%E9%9D%A2%E
 
 ```mermaid
 erDiagram
-    users ||--|{ interior_images : "ユーザーは複数のインテリアイメージを作成できる"
-    users ||--|{ bookmarks : "ユーザーは複数のインテリアイメージをブックマークできる"
-    bookmarks ||--|{ interior_images : "ブックマークは複数のインテリアイメージを持つことができる"
-    interior_images ||--|{ floars : "インテリアイメージは複数の床を持つことが出来る"
-    interior_images ||--|{ wallpapers : "インテリアイメージは複数のクロスを持つことが出来る"
+    users ||--o{ interior_images : "ユーザーは複数のインテリアイメージを作成できる"
+    users ||--o{ bookmarks : "ユーザーは複数のブックマークを作成できる"
+    bookmarks ||--|| interior_images : "ブックマークは一つのインテリアイメージを持つ"
+    interior_images ||--o{ floors : "インテリアイメージは複数の床を持つことができる"
+    interior_images ||--o{ wallpapers : "インテリアイメージは複数の壁紙を持つことができる"
 
     users {
       bigint id PK
@@ -75,21 +75,19 @@ erDiagram
     interior_images {
       bigint id PK "イメージ画像ID"
       bigint user_id FK "ユーザーID"
-      bigint floar_id FK "床ID"
+      bigint floor_id FK "床ID"
       bigint wallpaper_id FK "クロスID"
       timestamp created_at "作成日"
       timestamp updated_at "更新日"
     }
-    floars {
+    floors {
       bigint id PK "床ID"
-      bigint interior_image_id FK "イメージ画像ID"
       string name "床品番"
       timestamp created_at "作成日"
       timestamp updated_at "更新日"
     }
     wallpapers {
       bigint id PK "クロスID"
-      bigint interior_image_id FK "イメージ画像ID"
       string name "クロス品番"
       timestamp created_at "作成日"
       timestamp updated_at "更新日"
