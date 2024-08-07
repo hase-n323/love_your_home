@@ -99,4 +99,3 @@ erDiagram
       timestamp created_at "作成日"
       timestamp updated_at "更新日"
     }
-
