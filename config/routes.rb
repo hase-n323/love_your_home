@@ -1,12 +1,7 @@
 Rails.application.routes.draw do
-  get 'home/index'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root 'rooms#index'
+  get 'rooms/floor_simulator', to: 'rooms#floor_simulator', as: 'floor_simulator'
+  get 'rooms/wallpaper_simulator', to: 'rooms#wallpaper_simulator', as: 'wallpaper_simulator'
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  # get "up" => "rails/health#show", as: :rails_health_check
-
-  # Defines the root path route ("/")
-  # root "posts#index"
-  root 'home#index' # 'home'コントローラーの'index'アクションをルートに設定
+  resources :rooms, only: [:index, :create]
 end

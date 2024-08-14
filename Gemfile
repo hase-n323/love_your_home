@@ -4,6 +4,10 @@ ruby "3.2.3"
 
 gem 'mysql2', '>= 0.4.4'
 
+gem 'carrierwave'  # 画像アップロード用
+
+gem 'mini_magick'  # 画像処理用
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"
 
