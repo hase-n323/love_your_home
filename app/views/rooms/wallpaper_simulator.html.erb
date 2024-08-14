@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Interior Design Simulator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Open Sans', Arial, sans-serif; 
+        background-color: #f5f5f5; 
+        color: #333; 
+        margin: 0; 
+        padding: 20px; 
+      }
+
+      h1 {
+        font-size: 24px;
+        color: #444;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .sample-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 20px;
+        max-width: 1000px;
+        margin: 0 auto 40px;
+      }
+
+      .sample {
+        width: 100%;
+        height: 100px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-size: cover;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .sample:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      #preview { 
+        width: 500px; 
+        height: 500px; 
+        border: 1px solid #000; 
+        position: relative; 
+        margin: 0 auto; 
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+      }
+
+      #background { 
+        position: absolute; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%; 
+        background-size: 113.75px 77.5px; 
+        background-repeat: repeat; 
+        z-index: 1;
+      }
+
+      #overlay { 
+        position: absolute; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%; 
+        background-image: url('<%= asset_path("first_room.png") %>'); 
+        background-size: cover; 
+        z-index: 2; 
+        pointer-events: none;
+      }
+
+      #product-info {
+        max-width: 500px;
+        margin: 20px auto;
+        text-align: center;
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: none; /* 初期状態では非表示 */
+      }
+
+      #product-info a {
+        color: #0066cc;
+        text-decoration: none;
+      }
+
+      #product-info a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Choose Your Wallpaper</h1>
+    <div class="sample-container">
+      <!-- 140/1110 布地調の無地グレー -->
+      <div class="sample" 
+        style="background-image: url('<%= asset_path("wallpaper_image/140_02.jpg") %>');" 
+        onclick="showProductInfo('140/1110 布地調の無地グレー', 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-140', '<%= asset_path("wallpaper_image/140_02.jpg") %>', '<%= asset_path("wallpaper_image/wallpaper.png") %>', '1px 1px')">
+      </div>
+      <!-- 171/1271 漆喰調のパステルグリーン -->
+      <div class="sample" 
+        style="background-image: url('<%= asset_path("wallpaper_image/171_thumb02.jpg") %>');" 
+        onclick="showProductInfo('171/1271 漆喰調のパステルグリーン', 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-171', '<%= asset_path("wallpaper_image/171_thumb02.jpg") %>', '<%= asset_path("wallpaper_image/wallpaper.png") %>', '1px 1px')">
+      </div>
+      <!-- 172/1272 漆喰調のパステルピンク -->
+      <div class="sample" 
+        style="background-image: url('<%= asset_path("wallpaper_image/172_thumb02.jpg") %>');" 
+        onclick="showProductInfo('172/1272 漆喰調のパステルピンク', 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-172', '<%= asset_path("wallpaper_image/172_thumb02.jpg") %>', '<%= asset_path("wallpaper_image/wallpaper.png") %>', '1px 1px')">
+      </div>
+      <!-- 173/1273 漆喰調のパステルラベンダー -->
+      <div class="sample" 
+        style="background-image: url('<%= asset_path("wallpaper_image/173_thumb02.jpg") %>');" 
+        onclick="showProductInfo('173/1273 漆喰調のパステルラベンダー', 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-173', '<%= asset_path("wallpaper_image/173_thumb02.jpg") %>', '<%= asset_path("wallpaper_image/wallpaper.png") %>', '1px 1px')">
+      </div>
+      <!-- 174/1274 漆喰調のパウダーブルー -->
+      <div class="sample" 
+        style="background-image: url('<%= asset_path("wallpaper_image/174_thumb02.jpg") %>');" 
+        onclick="showProductInfo('174/1274 漆喰調のパウダーブルー', 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-174', '<%= asset_path("wallpaper_image/174_thumb02.jpg") %>', '<%= asset_path("wallpaper_image/wallpaper.png") %>', '1px 1px')">
+      </div>
+      <!-- 175/1275 508 レンガブラウン -->
+      <div class="sample" 
+        style="background-image: url('<%= asset_path("wallpaper_image/508_thumb02.jpg") %>');" 
+        onclick="showProductInfo('508 レンガブラウン', 'https://www.reform-myhome.com/fs/reformmyhome/rilm_brick/rilm-cut-508', '<%= asset_path("wallpaper_image/LW-265_1074245_230627_R_01.jpg") %>', '<%= asset_path("wallpaper_image/wallpaper.png") %>', '115px 116.25px')">
+      </div>
+      <!-- 737/7002 ボタニカルノーチェ -->
+      <div class="sample" 
+        style="background-image: url('<%= asset_path("wallpaper_image/737_thumb02.jpg") %>');" 
+        onclick="showProductInfo('737 ボタニカルノーチェ', 'https://www.reform-myhome.com/fs/reformmyhome/rilm_pattern/rilm-cut-737', '<%= asset_path("wallpaper_image/LL-7002_1223093_220517_R_01.jpg") %>', '<%= asset_path("wallpaper_image/wallpaper.png") %>', '114px 80px')">
+      </div>
+      <!-- 317 木目柄グレインホワイト -->
+      <div class="sample" 
+        style="background-image: url('<%= asset_path("wallpaper_image/317_thumb02.jpg") %>');" 
+        onclick="showProductInfo('317 木目柄グレインホワイト', 'https://www.reform-myhome.com/fs/reformmyhome/rilm_wood/rilm-cut-317', '<%= asset_path("wallpaper_image/RE55600-FE76603_20240523R01.jpg") %>', '<%= asset_path("wallpaper_image/wallpaper.png") %>', '114px 80px')">
+      </div>
+    </div>
+    <div id="preview">
+      <div id="background"></div>
+      <div id="overlay"></div>
+    </div>
+    <div id="product-info">
+      <p id="product-number"></p>
+      <p><a id="product-link" href="" target="_blank">View Product</a></p>
+    </div>
+    <script>
+      function changePreview(backgroundImageUrl, overlayImageUrl, backgroundSize) {
+        var background = document.getElementById('background');
+        var overlay = document.getElementById('overlay');
+        background.style.backgroundImage = 'url(' + backgroundImageUrl + ')';
+        overlay.style.backgroundImage = 'url(' + overlayImageUrl + ')';
+        background.style.backgroundSize = backgroundSize; // 背景サイズを動的に変更
+      }
+
+      function showProductInfo(productNumber, productLink, backgroundImageUrl, overlayImageUrl, backgroundSize) {
+        changePreview(backgroundImageUrl, overlayImageUrl, backgroundSize);
+
+        var productInfo = document.getElementById('product-info');
+        var productNumberElem = document.getElementById('product-number');
+        var productLinkElem = document.getElementById('product-link');
+
+        productNumberElem.textContent = 'Product Number: ' + productNumber;
+        productLinkElem.href = productLink;
+
+        productInfo.style.display = 'block'; // 商品情報を表示
+      }
+    </script>
+  </body>
+</html>
