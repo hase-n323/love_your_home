@@ -1,13 +1,13 @@
+# frozen_string_literal: true
+
 class RoomsController < ApplicationController
   def index
     @room = Room.last
   end
 
-  def floor_simulator
-  end
+  def floor_simulator; end
 
-  def wallpaper_simulator
-  end
+  def wallpaper_simulator; end
 
   def create
     @room = Room.new(room_params)
