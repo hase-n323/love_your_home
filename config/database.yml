@@ -12,7 +12,7 @@
 # Configure Using Gemfile
 # gem "pg"
 #
-ddefault: &default
+default: &default
   adapter: postgresql
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
