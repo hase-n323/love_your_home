@@ -5,13 +5,12 @@ class UserSessionsController < ApplicationController
 
   def create
     @user = login(params[:email], params[:password])
-
     if @user
-      flash[:notice] = "ログインしました"
-      redirect_to rooms_path
+      redirect_to root_path, success: 'ログインしました'
     else
       flash.now[:notice] = "ログインに失敗しました"
-      render :new
+      render :new, status: :unprocessable_entity
+      # status: :unprocessable_entity と指定することで、HTTPステータスコード422が返され、クライアントにリクエストの処理ができなかったことを適切に伝える
     end
   end
 
