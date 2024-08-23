@@ -10,6 +10,6 @@ bundle exec rake assets:precompile
 # 不要なアセットを削除するためのもので、ディスクスペースを確保するために使われるカ。プリコンパイルされた古いアセットをクリーンアップすることで、最新のアセットのみを残すことができる
 bundle exec rake assets:clean
 # データベースのマイグレーションを実行するためのものだ。マイグレーションを使ってデータベースのスキーマを更新することで、新しいテーブルを作成したり、既存のテーブルを変更したりすることができる
-bundle exec rake db:migrate
+# bundle exec rake db:migrate
 # データベースをリセットするコマンド
-# DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rake db:migrate:rese
+DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rake db:migrate:reset
