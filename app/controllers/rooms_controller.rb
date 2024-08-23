@@ -1,4 +1,6 @@
 class RoomsController < ApplicationController
+  skip_before_action :require_login, only: %i[index floor_simulator wallpaper_simulator create]
+  
   def index
   end
 
