@@ -11,12 +11,10 @@
   </head>
 
   <body>
-    <main>
-      <% flash.each do |message_type, message| %>
-        <div class="flash-message <%= message_type %>"><%= message %></div>
-      <% end %>
-      <%= yield %>
-    </main>
-    <h1>ヘッダー・フッターまだ</h1>
+    <%= render 'shared/header' %>
+    <%= render 'shared/flash_message' %>
+    <%= yield %>
+    <%= render 'shared/footer' %>
+
   </body>
 </html>
