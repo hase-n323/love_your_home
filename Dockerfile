@@ -4,20 +4,19 @@
 # docker build -t my-app .
 # docker run -d -p 80:80 -p 443:443 --name my-app -e RAILS_MASTER_KEY=<value from config/master.key> my-app
 
-# Dockerを使って特定のRubyバージョン（デフォルトでは3.2.3）の軽量イメージを作成するための基本的な設定を行っている。これにより、Rubyの環境を簡単に構築できる
+# Make sure RUBY_VERSION matches the Ruby version in .ruby-version
 ARG RUBY_VERSION=3.2.3
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
-# /railsというディレクトリが作業ディレクトリとして設定されています。つまり、このディレクトリ内でコンテナ内の作業が行われることになります
+# Rails app lives here
 WORKDIR /rails
 
-# Dockerイメージのビルド中に必要なパッケージをインストールし、不要なデータを削除することで、イメージを軽量化するための命令
+# Install base packages
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl libjemalloc2 libvips postgresql-client && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-# Dockerイメージ内でRuby on Railsアプリケーションの本番環境を設定するための環境変数を定義している
-# これにより、効率的に本番用の依存関係を管理し、イメージのサイズを小さく保つことができる
+# Set production environment
 ENV RAILS_ENV="production" \
     BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
