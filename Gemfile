@@ -1,6 +1,7 @@
 source "https://rubygems.org"
-# cannot load such file -- sasscエラーが出たので追加
-gem 'sassc-rails'
+
+# cssを適用させるためのgem
+gem "sassc-rails"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.1"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]

@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* カスタムスタイルの定義 */
+body {
+  @apply bg-gray-100 text-gray-800 font-sans;
+}
+
+header, footer {
+  @apply bg-gray-200 p-5 text-center shadow-md;
+}
+
+.container {
+  @apply max-w-5xl mx-auto p-8 bg-white shadow-md rounded-lg;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply text-gray-700 text-center mb-5;
+}
+
+a {
+  @apply text-blue-600 font-semibold hover:underline;
+}
+
+input, textarea {
+  @apply w-full p-2 my-2 border border-gray-300 rounded bg-white;
+}
+
+button {
+  @apply bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700;
+}
