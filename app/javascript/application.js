@@ -1,4 +1,3 @@
-// Stimulus のコントローラを読み込む設定
 import { Application } from "stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
 
