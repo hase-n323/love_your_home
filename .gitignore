@@ -42,4 +42,4 @@
 # ここから下2行を追記
 .DS_Store
 /vendor/bundle
-# ここまで追記
+# ここまで追記.DS_Store
