@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
+gem "sorcery"
 # cssを適用させるためのgem
 gem "sassc-rails"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
