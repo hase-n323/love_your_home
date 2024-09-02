@@ -8,14 +8,16 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      #login_path ヘルパーメソッドで、保存が成功したらログインページへ飛ばす
       redirect_to root_path
     else
+      #保存が失敗したら登録画面へ飛ばす
       render :new
     end
   end
 
   private
-
+  #ユーザー登録画面からUserモデルへ送信されたパラメーターを要求し、その中からpermitで指定したパラメータを取得
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
   end
