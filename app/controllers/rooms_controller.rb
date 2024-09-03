@@ -1,5 +1,7 @@
 class RoomsController < ApplicationController
-  skip_before_action :require_login, only: %i[top]
+  # 未ログインのユーザーでもアクセスできるページ
+  def wallpaper_simulator; end
+  skip_before_action :require_login, only: %i[top floor_simulator wallpaper_simulator]
   
   def top; end
 

@@ -1,17 +1,28 @@
 class UserSessionsController < ApplicationController
+  # require_loginフィルターを new と create アクションに適用しないように指示
+  # 新しいユーザーを作成するための new アクションと create アクションでは、ログインが必要ないことを示す
+  skip_before_action :require_login, only: %i[new create]
+
   def new; end
- 
- def create
-   @user = login(params[:email], params[:password])
-   if @user
-     redirect_back_or_to root_path
-   else
-     render :new
-   end
- end
- 
- def destroy
-   logout
-   redirect_to root_path
- end
+
+  def create
+    @user = login(params[:email], params[:password])
+
+    if @user
+      # ログインに成功した場合、root_path(トップページ)にリダイレクト
+      redirect_to root_path
+    else
+      # ログインに失敗した場合、ログインページにリダイレクト
+      render :new
+    end
+  end
+
+  def destroy
+    # logoutメソッドを呼び出して、セッションをクリアする
+    logout
+    # ログアウトに成功した場合、root_path(トップページ)にリダイレクト
+    # 「status: :see_other」とは、destoryアクションでTurboを使うために必要なコード
+    # status: :see_otherを指定すると、POSTリクエスト後の新しいページへのGETリクエスト移動が促され、フォームの再送信を防ぐ
+    redirect_to root_path, status: :see_other
+  end
 end

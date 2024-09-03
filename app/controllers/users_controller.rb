@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  # 未ログインのユーザーでもアクセスできるページ
   skip_before_action :require_login, only: %i[new create]
 
   def new
