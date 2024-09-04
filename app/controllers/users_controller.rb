@@ -10,10 +10,12 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       #login_path ヘルパーメソッドで、保存が成功したらログインページへ飛ばす
-      redirect_to root_path
+      redirect_to root_path, success: 'ユーザー登録が完了しました'
     else
       #保存が失敗したら登録画面へ飛ばす
-      render :new
+      flash.now[:danger] = 'ユーザー登録に失敗しました'
+      # status: :unprocessable_entity HTTPステータスコード422エラーを返す
+      render :new, status: :unprocessable_entity
     end
   end
 
