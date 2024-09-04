@@ -1,6 +1,5 @@
 source "https://rubygems.org"
 
-gem 'jquery-rails'
 gem "sorcery"
 # cssを適用させるためのgem
 gem "sassc-rails"
