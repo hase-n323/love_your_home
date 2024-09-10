@@ -2,8 +2,7 @@
 <html>
   <head>
     <title>Interior Design Simulator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <%= stylesheet_link_tag 'simulator', media: 'all' %>
+    <%= stylesheet_link_tag params[:controller] %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
   <body>
@@ -66,7 +65,7 @@
     </div>
     <div id="product-info">
       <p id="product-number"></p>
-      <p><a id="product-link" href="" target="_blank">View Product</a></p>
+      <p><a id="product-link" href="" target="_blank">商品情報</a></p>
     </div>
     <script>
       function changePreview(backgroundImageUrl, overlayImageUrl, backgroundSize) {

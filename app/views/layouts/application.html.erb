@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Love your home</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title><%= content_for(:title) || "Love your home" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%#= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
+    <%= yield :head %>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
   <body>
-    <%# gem 'sorcery'が提供する logged_in? ヘルパーメソッド %>
+     <%# gem 'sorcery'が提供する logged_in? ヘルパーメソッド %>
     <% if logged_in? %>
       <%= render 'shared/header' %>
     <% else %>
