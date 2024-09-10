@@ -83,7 +83,6 @@ test:
 #
 production:
   <<: *default
-  # database: myapp_production
-  # username: myapp
-  # password: <%= ENV["MYAPP_DATABASE_PASSWORD"] %>
-  url: <%= ENV['DATABASE_URL'] %> #この設定により、DATABASE_URL 環境変数からすべての接続情報（ホスト名、ユーザー名、パスワード、データベース名）が自動的に読み取られる
+  database: myapp_production
+  username: myapp
+  password: <%= ENV["MYAPP_DATABASE_PASSWORD"] %>
