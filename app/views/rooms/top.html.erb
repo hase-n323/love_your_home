@@ -1,8 +1,20 @@
-<div class="container mx-auto py-8">
-  <h2 class="text-2xl font-semibold text-gray-700 mb-6">シミュレーションを選択してください</h2>
-  <div class="flex space-x-4">
-    <%= link_to "Floor Simulator", floor_simulator_path, class: "bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded" %>
-    <%= link_to "Wallpaper Simulator", wallpaper_simulator_path, class: "bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded" %>
-    <%= link_to "Sign Up", new_user_path, class: "bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded" %>
+<div class="relative flex min-h-screen items-center justify-center overflow-hidden bg-gray-50 py-12 sm:py-24">
+  <!-- 背景画像 -->
+  <img src="<%= asset_path('background_1') %>" alt="" class="absolute inset-0 w-full h-full object-cover opacity-50">
+  
+  <!-- コンテンツボックス -->
+  <div class="relative z-10 bg-white bg-opacity-75 rounded-lg shadow-xl ring-1 ring-gray-900/5 px-8 py-10 max-w-2xl text-center">
+    <h1 class="text-3xl font-bold text-gray-700 mb-4">床材・壁紙を初心者でも簡単に変更できるアプリ</h1>
+    <p class="text-lg text-gray-600 mb-6">初心者でも直感的に操作できるように設計されたシミュレーションツールです。お部屋の雰囲気を自由にカスタマイズしましょう！</p>
+    
+    <h2 class="text-xl font-semibold text-gray-700 mb-8">シミュレーションを選択してください</h2>
+    
+    <!-- ボタン -->
+    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+      <%= link_to "床を変えたい方", floor_simulator_path, class: "bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 px-6 rounded shadow-md transition duration-200 ease-in-out" %>
+      <%= link_to "壁紙を変えたい方", wallpaper_simulator_path, class: "bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 px-6 rounded shadow-md transition duration-200 ease-in-out" %>
+      <%= link_to "Sign Up", new_user_path, class: "bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded shadow-md transition duration-200 ease-in-out" %>
+      <%= link_to "Login", login_path, class: "bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded shadow-md transition duration-200 ease-in-out" %>
+    </div>
   </div>
 </div>
