@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       redirect_to root_path, success: 'ユーザー登録が完了しました'
     else
       #保存が失敗したら登録画面へ飛ばす
-      flash.now[:danger] = 'ユーザー登録に失敗しました'
+      flash.now[:alert] = 'ユーザー登録に失敗しました'
       # status: :unprocessable_entity HTTPステータスコード422エラーを返す
       render :new, status: :unprocessable_entity
     end
