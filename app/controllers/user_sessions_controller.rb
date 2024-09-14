@@ -12,7 +12,7 @@ class UserSessionsController < ApplicationController
       # ログインに成功した場合、root_path(トップページ)にリダイレクト
       redirect_to root_path, success: 'ログインに成功しました'
     else
-      flash.now[danger] = 'ログインに失敗しました'
+      flash.now[:alert] = 'ログインに失敗しました'
       # ログインに失敗した場合、ログインページにリダイレクト
       # status: :unprocessable_entity HTTPステータスコード422エラーを返す
       render :new, status: :unprocessable_entity
