@@ -49,11 +49,11 @@
       <div id="background"></div>
       <div id="overlay" style="background-image: url('<%= asset_path("first_room.png") %>'); background-size: cover;"></div>
     </div>
-    
-
+ 
     <div id="product-info">
       <p id="product-number"></p>
       <p><a id="product-link" href="" target="_blank">商品情報</a></p>
+      
       <% if logged_in? %>
         <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
           <%= form.hidden_field :product_number, id: "hidden-product-number" %>
@@ -61,14 +61,8 @@
           <%= form.hidden_field :product_image, id: "hidden-product-image" %>
           <%= form.submit "お気に入りに追加", class: "bookmark-button" %>
         <% end %>
-      <% else %>
-        <div id="product-info">
-          <p id="product-number"></p>
-          <p><a id="product-link" href="" target="_blank">商品情報</a></p>
-        </div>
       <% end %>
     </div>
-    
 
     <div class="sample-container">
       <!-- LH-81314 -->
