@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   post 'login', to: 'user_sessions#create'
   # DELETEメソッドを利用し、logoutパスへのリクエストがあった場合にuser_sessionsコントローラーのdestroyアクションを呼び出す
   delete 'logout', to: 'user_sessions#destroy'
+
+  resources :bookmarks, only: [:create] # 必要に応じて他のアクションも追加可能
 end
