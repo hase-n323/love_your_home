@@ -49,9 +49,24 @@
       <div id="background"></div>
       <div id="overlay" style="background-image: url('<%= asset_path("first_room.png") %>'); background-size: cover;"></div>
     </div>
+    
+
     <div id="product-info">
       <p id="product-number"></p>
       <p><a id="product-link" href="" target="_blank">商品情報</a></p>
+      <% if logged_in? %>
+        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :product_number, id: "hidden-product-number" %>
+          <%= form.hidden_field :product_link, id: "hidden-product-link" %>
+          <%= form.hidden_field :product_image, id: "hidden-product-image" %>
+          <%= form.submit "お気に入りに追加", class: "bookmark-button" %>
+        <% end %>
+      <% else %>
+        <div id="product-info">
+          <p id="product-number"></p>
+          <p><a id="product-link" href="" target="_blank">商品情報</a></p>
+        </div>
+      <% end %>
     </div>
     
 
@@ -127,8 +142,14 @@
         productNumberElem.textContent = '品番: ' + productNumber;
         productLinkElem.href = productLink;
 
+        // 隠しフィールドにデータをセット
+        document.getElementById('hidden-product-number').value = productNumber;
+        document.getElementById('hidden-product-link').value = productLink;
+        document.getElementById('hidden-product-image').value = backgroundImageUrl;
+
         productInfo.style.display = 'block'; // 商品情報を表示
-      }
+}
+
     </script>
     
 
