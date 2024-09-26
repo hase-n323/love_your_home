@@ -23,5 +23,8 @@ module Myapp
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # i18n化、Railsアプリケーションのデフォルトの言語設定が日本語（:ja）に設定されます。
+    config.i18n.default_locale = :ja
   end
 end

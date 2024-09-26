@@ -1,0 +1,9 @@
+<h1>ブックマーク一覧</h1>
+
+<% @bookmarks.each do |bookmark| %>
+  <div class="bookmark">
+    <p>品番: <%= bookmark.product_number %></p>
+    <a href="<%= bookmark.product_link %>" target="_blank">商品情報</a>
+    <img src="<%= bookmark.product_image %>" alt="Product Image">
+  </div>
+<% end %>
