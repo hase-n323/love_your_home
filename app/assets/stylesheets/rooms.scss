@@ -44,7 +44,9 @@ h1 {
 }
 
 .sample:hover {
-  transform: scale(1.05);  // ホバー時に少し拡大
+  // transform: scale(1.05);  // ホバー時に少し拡大
+  transform: scale(1.08);  // ホバー時に少し拡大
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);  // 影を強調
 }
 
 // プレビューと背景のスタイル
@@ -57,6 +59,10 @@ h1 {
   border-radius: 8px;
   box-shadow: $box-shadow;
   background-image: #fff;
+  border: 2px solid lighten($text-color, 30%);
+  box-shadow: $box-shadow;
+  border-radius: 10px;
+}
   
   #background, #overlay {
     position: absolute;
@@ -78,7 +84,7 @@ h1 {
     z-index: 2;
     pointer-events: none;
   }
-}
+
 
 // 商品情報のスタイル
 #product-info {
@@ -108,3 +114,18 @@ h1 {
 #product-info a:hover {
   text-decoration: underline;
 }
+
+.bookmark-button {
+  background-color: $primary-color;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.bookmark-button:hover {
+  background-color: darken($primary-color, 10%);
+}
+

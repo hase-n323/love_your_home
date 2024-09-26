@@ -1,6 +1,10 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
 
+  # ユーザーが複数のsimulatorsレコードを持つことを示しています
+  has_many :simulators, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
+
   # password；最小で3文字以上必要（新規レコード作成もしくはcrypted_passwordカラムが更新される時のみ適応）
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }

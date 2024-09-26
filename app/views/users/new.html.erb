@@ -1,27 +1,27 @@
 <div class="max-w-lg mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
-  <h1 class="text-2xl font-semibold text-gray-800 text-center mb-6">ユーザー登録</h1>
+  <h1 class="text-2xl font-semibold text-gray-800 text-center mb-6"><%= t('.title') %></h1>
   <%= form_with model: @user, class: "space-y-6" do |f| %>
     <div>
-      <%= f.label :email, "メールアドレス", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
       <%= f.email_field :email, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-beige-500 focus:border-beige-500" %>
     </div>
     
     <div>
-      <%= f.label :password, "パスワード", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :password, class: "block text-sm font-medium text-gray-700" %>
       <%= f.password_field :password, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-beige-500 focus:border-beige-500" %>
     </div>
 
     <div>
-      <%= f.label :password_confirmation, "パスワード確認", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.label :password_confirmation, class: "block text-sm font-medium text-gray-700" %>
       <%= f.password_field :password_confirmation, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-beige-500 focus:border-beige-500" %>
     </div>
 
     <div class="text-center">
-      <%= f.submit "登録", class: "w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md transition duration-200" %>
+      <%= f.submit t('helpers.submit.create'), class: "w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md transition duration-200" %>
     </div>
   <% end %>
   
   <div class="mt-4 text-center">
-    <%= link_to 'ログインページへ', login_path, class: "text-sm text-gray-600 hover:underline" %>
+    <%= link_to t('.to_login_page'), login_path, class: "text-sm text-gray-600 hover:underline" %>
   </div>
 </div>

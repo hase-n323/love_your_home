@@ -1,5 +1,5 @@
 class BookmarksController < ApplicationController
-  before_action :authenticate_user! # ログインしているユーザーのみがアクセス可能にする
+  before_action :require_login # ログインしているユーザーのみがアクセス可能にする
 
   def create
     bookmark = current_user.bookmarks.new(bookmark_params)
@@ -9,6 +9,10 @@ class BookmarksController < ApplicationController
     else
       redirect_to rooms_simulator_path, alert: 'お気に入りの登録に失敗しました。'
     end
+  end
+
+  def index
+    @bookmarks = current_user.bookmarks
   end
 
   private
