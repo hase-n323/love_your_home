@@ -24,29 +24,34 @@ h1 {
 
 // サンプルコンテナのスタイル
 .sample-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  display: flex;
+  overflow-x: auto; /* 横スクロールを可能にする */
   gap: 20px;
   max-width: 1000px;
   margin: 40px auto;
 }
 
-// サンプル画像のスタイル
 .sample {
-  width: 150px;
+  flex: 0 0 150px; /* 固定幅150pxに設定 */
   height: 150px;
   background-size: cover;
-  border-radius: 8px;  // 角丸の追加
-  box-shadow: $box-shadow;  // ボックスシャドウの適用
+  border-radius: 8px;
+  box-shadow: $box-shadow;
   margin: 10px;
   cursor: pointer;
-  transition: transform 0.3s ease-in-out;  // ホバー効果を追加
+  transition: transform 0.3s ease-in-out;
 }
 
 .sample:hover {
-  // transform: scale(1.05);  // ホバー時に少し拡大
-  transform: scale(1.08);  // ホバー時に少し拡大
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);  // 影を強調
+  transform: scale(1.08);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.simulation-container {
+  display: flex;
+  justify-content: center; /* 中央揃えにする場合 */
+  align-items: flex-start; /* 上揃え */
+  gap: 20px; /* プレビューと商品情報の間にスペースを追加 */
 }
 
 // プレビューと背景のスタイル
@@ -55,7 +60,6 @@ h1 {
   height: 500px;
   border: 1px solid #000;
   position: relative;
-  margin: 0 auto;
   border-radius: 8px;
   box-shadow: $box-shadow;
   background-image: #fff;
@@ -88,44 +92,16 @@ h1 {
 
 // 商品情報のスタイル
 #product-info {
-  display: none;  // 初期状態では非表示
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(90%);
-  background-color: rgba(212,186,159,0.5);
+  padding: 10px;
+  border: 1px solid #ccc;
+  width: 200px;
   border-radius: 8px;
-  padding: 20px 60px;
-  box-shadow: $box-shadow;
-  z-index: 10;
-  width: 300px;
-  text-align: center;
+  background-color: #f9f9f9; /* 背景色の追加 */
 }
 
-#product-info p {
-  margin: 0 0 10px;
+#product-sample-image {
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  margin-bottom: 10px;
 }
-
-#product-info a {
-  color: $primary-color;
-  text-decoration: none;
-}
-
-#product-info a:hover {
-  text-decoration: underline;
-}
-
-.bookmark-button {
-  background-color: $primary-color;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.bookmark-button:hover {
-  background-color: darken($primary-color, 10%);
-}
-

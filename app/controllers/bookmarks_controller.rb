@@ -1,23 +1,29 @@
 class BookmarksController < ApplicationController
-  before_action :require_login # ログインしているユーザーのみがアクセス可能にする
+  before_action :require_login  # ログインしているユーザーのみがアクセス可能にする
 
   def create
-    bookmark = current_user.bookmarks.new(bookmark_params)
-
+    # 既にブックマークがあるか確認
+    bookmark = current_user.bookmarks.find_or_initialize_by(product_number: params[:product_number])
+    bookmark.product_link = params[:product_link]
+    
     if bookmark.save
-      redirect_to rooms_simulator_path, notice: '商品をお気に入りに登録しました。'
+      flash[:notice] = "ブックマークしました"
     else
-      redirect_to rooms_simulator_path, alert: 'お気に入りの登録に失敗しました。'
+      flash[:alert] = "ブックマークに失敗しました"
     end
+    redirect_to simulator_path
   end
 
-  def index
-    @bookmarks = current_user.bookmarks
+  def destroy
+    bookmark = current_user.bookmarks.find(params[:id])
+    
+    if bookmark&.destroy
+      flash[:notice] = "ブックマークを解除しました"
+    else
+      flash[:alert] = "ブックマークの解除に失敗しました"
+    end
+    redirect_to simulator_path
   end
-
-  private
-
-  def bookmark_params
-    params.require(:bookmark).permit(:product_number, :product_link, :product_image)
-  end
+  
 end
+  

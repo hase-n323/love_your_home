@@ -1,149 +1,532 @@
-
-    <title>Interior Design Simulator</title>
-    <%= stylesheet_link_tag params[:controller] %>
+<%= stylesheet_link_tag params[:controller] %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <h1>Choose Your Like</h1>
-    <div class="sample-container">
-      <!-- 140/1110 布地調の無地グレー -->
-      <div class="sample" 
-        style="background-image: url('<%= asset_path("wallpaper_image/140_02.jpg") %>');" 
-        onclick="showProductInfo('140/1110 布地調の無地グレー', 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-140', '<%= asset_path("wallpaper_image/140_02.jpg") %>', '<%= asset_path("wallpaper_image/wallpaper.png") %>', '1px 1px')">
-      </div>
-      <!-- 171/1271 漆喰調のパステルグリーン -->
-      <div class="sample" 
-        style="background-image: url('<%= asset_path("wallpaper_image/171_thumb02.jpg") %>');" 
-        onclick="showProductInfo('171/1271 漆喰調のパステルグリーン', 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-171', '<%= asset_path("wallpaper_image/171_thumb02.jpg") %>', '<%= asset_path("wallpaper_image/wallpaper.png") %>', '1px 1px')">
-      </div>
-      <!-- 172/1272 漆喰調のパステルピンク -->
-      <div class="sample" 
-        style="background-image: url('<%= asset_path("wallpaper_image/172_thumb02.jpg") %>');" 
-        onclick="showProductInfo('172/1272 漆喰調のパステルピンク', 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-172', '<%= asset_path("wallpaper_image/172_thumb02.jpg") %>', '<%= asset_path("wallpaper_image/wallpaper.png") %>', '1px 1px')">
-      </div>
-      <!-- 173/1273 漆喰調のパステルラベンダー -->
-      <div class="sample" 
-        style="background-image: url('<%= asset_path("wallpaper_image/173_thumb02.jpg") %>');" 
-        onclick="showProductInfo('173/1273 漆喰調のパステルラベンダー', 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-173', '<%= asset_path("wallpaper_image/173_thumb02.jpg") %>', '<%= asset_path("wallpaper_image/wallpaper.png") %>', '1px 1px')">
-      </div>
-      <!-- 174/1274 漆喰調のパウダーブルー -->
-      <div class="sample" 
-        style="background-image: url('<%= asset_path("wallpaper_image/174_thumb02.jpg") %>');" 
-        onclick="showProductInfo('174/1274 漆喰調のパウダーブルー', 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-174', '<%= asset_path("wallpaper_image/174_thumb02.jpg") %>', '<%= asset_path("wallpaper_image/wallpaper.png") %>', '1px 1px')">
-      </div>
-      <!-- 175/1275 508 レンガブラウン -->
-      <div class="sample" 
-        style="background-image: url('<%= asset_path("wallpaper_image/508_thumb02.jpg") %>');" 
-        onclick="showProductInfo('508 レンガブラウン', 'https://www.reform-myhome.com/fs/reformmyhome/rilm_brick/rilm-cut-508', '<%= asset_path("wallpaper_image/LW-265_1074245_230627_R_01.jpg") %>', '<%= asset_path("wallpaper_image/wallpaper.png") %>', '115px 116.25px')">
-      </div>
-      <!-- 737/7002 ボタニカルノーチェ -->
-      <div class="sample" 
-        style="background-image: url('<%= asset_path("wallpaper_image/737_thumb02.jpg") %>');" 
-        onclick="showProductInfo('737 ボタニカルノーチェ', 'https://www.reform-myhome.com/fs/reformmyhome/rilm_pattern/rilm-cut-737', '<%= asset_path("wallpaper_image/LL-7002_1223093_220517_R_01.jpg") %>', '<%= asset_path("wallpaper_image/wallpaper.png") %>', '114px 80px')">
-      </div>
-      <!-- 317 木目柄グレインホワイト -->
-      <div class="sample" 
-        style="background-image: url('<%= asset_path("wallpaper_image/317_thumb02.jpg") %>');" 
-        onclick="showProductInfo('317 木目柄グレインホワイト', 'https://www.reform-myhome.com/fs/reformmyhome/rilm_wood/rilm-cut-317', '<%= asset_path("wallpaper_image/RE55600-FE76603_20240523R01.jpg") %>', '<%= asset_path("wallpaper_image/wallpaper.png") %>', '114px 80px')">
-      </div>
-    </div>
-    <div id="preview">
-      <div id="background"></div>
-      <div id="overlay" style="background-image: url('<%= asset_path("first_room.png") %>'); background-size: cover;"></div>
-    </div>
- 
-    <div id="product-info">
-      <p id="product-number"></p>
-      <p><a id="product-link" href="" target="_blank">商品情報</a></p>
-      
-      <% if logged_in? %>
+<!-- 壁紙サンプル -->
+<div class="sample-container">
+  <!-- 140/1110 布地調の無地グレー -->
+  <div class="sample" style="background-image: url('<%= asset_path("wallpaper_image/140_02.jpg") %>');"
+    data-product-number="140/1110 布地調の無地グレー"
+    data-product-link="https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-140"
+    data-background-image-url="<%= asset_path('wallpaper_image/140_02.jpg') %>"
+    data-overlay-image-url="<%= asset_path('wallpaper_image/wallpaper.png') %>"
+    data-background-size="1px 1px">
+    
+    <% if logged_in? && current_user %> <!-- ログインしているか確認 -->
+      <% bookmark = current_user.bookmarks.find_by(product_number: '140/1110 布地調の無地グレー') %>
+      <% if bookmark %>
+        <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
+          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+        <% end %>
+      <% else %>
         <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
-          <%= form.hidden_field :product_number, id: "hidden-product-number" %>
-          <%= form.hidden_field :product_link, id: "hidden-product-link" %>
-          <%= form.hidden_field :product_image, id: "hidden-product-image" %>
-          <%= form.submit "お気に入りに追加", class: "bookmark-button" %>
+          <%= form.hidden_field :product_number, value: '140/1110 布地調の無地グレー' %>
+          <%= form.hidden_field :product_link, value: 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-140' %>
+          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
-    </div>
+    <% else %>
+      <p></p>
+    <% end %>
+  </div>
+  <!-- 171/1271 漆喰調のパステルグリーン -->
+  <div class="sample" style="background-image: url('<%= asset_path("wallpaper_image/171_thumb02.jpg") %>');"
+    data-product-number="171/1271 漆喰調のパステルグリーン"
+    data-product-link="https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-171"
+    data-background-image-url="<%= asset_path('wallpaper_image/171_thumb02.jpg') %>"
+    data-overlay-image-url="<%= asset_path('wallpaper_image/wallpaper.png') %>"
+    data-background-size="1px 1px">
+    
+    <% if logged_in? && current_user %> <!-- ログインしているか確認 -->
+      <% bookmark = current_user.bookmarks.find_by(product_number: '171/1271 漆喰調のパステルグリーン') %>
+      <% if bookmark %>
+        <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
+          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+        <% end %>
+      <% else %>
+        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :product_number, value: '171/1271 漆喰調のパステルグリーン' %>
+          <%= form.hidden_field :product_link, value: 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-171' %>
+          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+        <% end %>
+      <% end %>
+    <% else %>
+      <p></p>
+    <% end %>
+  </div>
+  <!-- 172/1272 漆喰調のパステルピンク -->
+  <div class="sample" style="background-image: url('<%= asset_path("wallpaper_image/172_thumb02.jpg") %>');"
+    data-product-number="172/1272 漆喰調のパステルピンク"
+    data-product-link="https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-172"
+    data-background-image-url="<%= asset_path('wallpaper_image/172_thumb02.jpg') %>"
+    data-overlay-image-url="<%= asset_path('wallpaper_image/wallpaper.png') %>"
+    data-background-size="1px 1px">
+    
+    <% if logged_in? && current_user %> <!-- ログインしているか確認 -->
+      <% bookmark = current_user.bookmarks.find_by(product_number: '172/1272 漆喰調のパステルピンク') %>
+      <% if bookmark %>
+        <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
+          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+        <% end %>
+      <% else %>
+        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :product_number, value: '172/1272 漆喰調のパステルピンク' %>
+          <%= form.hidden_field :product_link, value: 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-172' %>
+          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+        <% end %>
+      <% end %>
+    <% else %>
+      <p></p>
+    <% end %>
+  </div>
+  <!-- 173/1273 漆喰調のパステルラベンダー -->
+  <div class="sample" style="background-image: url('<%= asset_path("wallpaper_image/173_thumb02.jpg") %>');"
+    data-product-number="173/1273 漆喰調のパステルラベンダー"
+    data-product-link="https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-173"
+    data-background-image-url="<%= asset_path('wallpaper_image/173_thumb02.jpg') %>"
+    data-overlay-image-url="<%= asset_path('wallpaper_image/wallpaper.png') %>"
+    data-background-size="1px 1px">
+    
+    <% if logged_in? && current_user %> <!-- ログインしているか確認 -->
+      <% bookmark = current_user.bookmarks.find_by(product_number: '173/1273 漆喰調のパステルラベンダー') %>
+      <% if bookmark %>
+        <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
+          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+        <% end %>
+      <% else %>
+        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :product_number, value: '173/1273 漆喰調のパステルラベンダー' %>
+          <%= form.hidden_field :product_link, value: 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-172' %>
+          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+        <% end %>
+      <% end %>
+    <% else %>
+      <p></p>
+    <% end %>
+  </div>
+  <!-- 174/1274 漆喰調のパウダーブルー -->
+  <div class="sample" style="background-image: url('<%= asset_path("wallpaper_image/174_thumb02.jpg") %>');"
+    data-product-number="174/1274 漆喰調のパウダーブルー"
+    data-product-link="https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-174"
+    data-background-image-url="<%= asset_path('wallpaper_image/174_thumb02.jpg') %>"
+    data-overlay-image-url="<%= asset_path('wallpaper_image/wallpaper.png') %>"
+    data-background-size="1px 1px">
+    
+    <% if logged_in? && current_user %> <!-- ログインしているか確認 -->
+      <% bookmark = current_user.bookmarks.find_by(product_number: '174/1274 漆喰調のパウダーブルー') %>
+      <% if bookmark %>
+        <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
+          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+        <% end %>
+      <% else %>
+        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :product_number, value: '174/1274 漆喰調のパウダーブルー' %>
+          <%= form.hidden_field :product_link, value: 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-174' %>
+          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+        <% end %>
+      <% end %>
+    <% else %>
+      <p></p>
+    <% end %>
+  </div>
+  <!-- 175/1275 508 レンガブラウン -->
+  <div class="sample" style="background-image: url('<%= asset_path("wallpaper_image/508_thumb02.jpg") %>');"
+    data-product-number="508 レンガブラウン"
+    data-product-link="https://www.reform-myhome.com/fs/reformmyhome/rilm_brick/rilm-cut-508"
+    data-background-image-url="<%= asset_path('wallpaper_image/LW-265_1074245_230627_R_01.jpg') %>"
+    data-overlay-image-url="<%= asset_path('wallpaper_image/wallpaper.png') %>"
+    data-background-size="115px 116.25px">
+    
+    <% if logged_in? && current_user %> <!-- ログインしているか確認 -->
+      <% bookmark = current_user.bookmarks.find_by(product_number: '508 レンガブラウン') %>
+      <% if bookmark %>
+        <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
+          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+        <% end %>
+      <% else %>
+        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :product_number, value: '508 レンガブラウン' %>
+          <%= form.hidden_field :product_link, value: 'https://www.reform-myhome.com/fs/reformmyhome/rilm_brick/rilm-cut-508' %>
+          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+        <% end %>
+      <% end %>
+    <% else %>
+      <p></p>
+    <% end %>
+  </div>
+  <!-- 737/7002 ボタニカルノーチェ -->
+  <div class="sample" style="background-image: url('<%= asset_path("wallpaper_image/737_thumb02.jpg") %>');"
+    data-product-number="737 ボタニカルノーチェ"
+    data-product-link="https://www.reform-myhome.com/fs/reformmyhome/rilm_pattern/rilm-cut-737"
+    data-background-image-url="<%= asset_path('wallpaper_image/LL-7002_1223093_220517_R_01.jpg') %>"
+    data-overlay-image-url="<%= asset_path('wallpaper_image/wallpaper.png') %>"
+    data-background-size="114px 80px">
+    
+    <% if logged_in? && current_user %> <!-- ログインしているか確認 -->
+      <% bookmark = current_user.bookmarks.find_by(product_number: '737 ボタニカルノーチェ') %>
+      <% if bookmark %>
+        <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
+          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+        <% end %>
+      <% else %>
+        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :product_number, value: '737 ボタニカルノーチェ' %>
+          <%= form.hidden_field :product_link, value: 'https://www.reform-myhome.com/fs/reformmyhome/rilm_pattern/rilm-cut-737' %>
+          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+        <% end %>
+      <% end %>
+    <% else %>
+      <p></p>
+    <% end %>
+  </div>
+  <!-- 317 木目柄グレインホワイト -->
+  <div class="sample" style="background-image: url('<%= asset_path("wallpaper_image/317_thumb02.jpg") %>');"
+    data-product-number="317 木目柄グレインホワイト"
+    data-product-link="https://www.reform-myhome.com/fs/reformmyhome/rilm_wood/rilm-cut-317"
+    data-background-image-url="<%= asset_path('wallpaper_image/RE55600-FE76603_20240523R01.jpg') %>"
+    data-overlay-image-url="<%= asset_path('wallpaper_image/wallpaper.png') %>"
+    data-background-size="114px 80px">
+    
+    <% if logged_in? && current_user %> <!-- ログインしているか確認 -->
+      <% bookmark = current_user.bookmarks.find_by(product_number: '317 木目柄グレインホワイト') %>
+      <% if bookmark %>
+        <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
+          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+        <% end %>
+      <% else %>
+        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :product_number, value: '317 木目柄グレインホワイト' %>
+          <%= form.hidden_field :product_link, value: 'https://www.reform-myhome.com/fs/reformmyhome/rilm_wood/rilm-cut-317' %>
+          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+        <% end %>
+      <% end %>
+    <% else %>
+      <p></p>
+    <% end %>
+  </div>
+</div>
 
-    <div class="sample-container">
-      <!-- LH-81314 -->
-      <div class="sample" 
-        style="background-image: url('<%= asset_path("floor_image/LH-81314_4191061_220202_C_01.jpg") %>');" 
-        onclick="showProductInfo('LH-81314', 'https://item.rakuten.co.jp/kabegamiworld/lh81314-81316/', '<%= asset_path("floor_image/LH-81314_4191061_220202_R_01.jpg") %>', '<%= asset_path("floor_image/floor.png") %>', '113.75px 77.5px')">
-      </div>
-      <!-- LH-81325 -->
-      <div class="sample" 
-        style="background-image: url('<%= asset_path("floor_image/LH-81325_4191067_220202_C_01.jpg") %>');" 
-        onclick="showProductInfo('LH-81325', 'https://item.rakuten.co.jp/kabegamiworld/lh81325-81326/', '<%= asset_path("floor_image/LH-81325_4191067_220202_R_01.jpg") %>', '<%= asset_path("floor_image/floor.png") %>', '113.75px 77.5px')">
-      </div>
-      <!-- LH-81310 -->
-      <div class="sample" 
-        style="background-image: url('<%= asset_path("floor_image/LH-81310_4166088_220202_C_01.jpg") %>');" 
-        onclick="showProductInfo('LH-81310', 'https://item.rakuten.co.jp/kabegamiworld/lh81308-81310/', '<%= asset_path("floor_image/LH-81310_4166088_220202_R_01.jpg") %>', '<%= asset_path("floor_image/floor.png") %>', '113.75px 77.5px')">
-      </div>
-      <!-- LH-81309 -->
-      <div class="sample" 
-        style="background-image: url('<%= asset_path("floor_image/LH-81309_4166087_220202_C_01.jpg") %>');" 
-        onclick="showProductInfo('LH-81309', 'https://item.rakuten.co.jp/kabegamiworld/lh81308-81310/', '<%= asset_path("floor_image/LH-81309_4166087_220202_R_01.jpg") %>', '<%= asset_path("floor_image/floor.png") %>', '113.75px 77.5px')">
-      </div>
-      <!-- LH-81318 -->
-      <div class="sample" 
-        style="background-image: url('<%= asset_path("floor_image/LH-81318_4223062_220202_C_01.jpg") %>');" 
-        onclick="showProductInfo('LH-81318', 'https://item.rakuten.co.jp/kabegamiworld/lh81317-81318/', '<%= asset_path("floor_image/LH-81318_4223062_220202_R_01.jpg") %>', '<%= asset_path("floor_image/floor.png") %>', '113.75px 77.5px')">
-      </div>
-      <!-- LAY-87313 -->
-      <div class="sample" 
-        style="background-image: url('<%= asset_path("floor_image/LAY-87313_4107470_220602_C_01.jpg") %>');" 
-        onclick="showProductInfo('LAY-87313', 'https://www.diy-shop.jp/item.php?cc=0000001028', '<%= asset_path("floor_image/LAY-87313_4107470_220602_R_01.jpg") %>', '<%= asset_path("floor_image/floor.png") %>', '113.75px 77.5px')">
-      </div>
-      <!-- LAY-87317 -->
-      <div class="sample" 
-        style="background-image: url('<%= asset_path("floor_image/LAY-87317_4107474_220602_C_01.jpg") %>');" 
-        onclick="showProductInfo('LAY-87317', 'https://www.diy-shop.jp/item.php?cc=0000001029', '<%= asset_path("floor_image/LAY-87317_4107474_220602_R_01.jpg") %>', '<%= asset_path("floor_image/floor.png") %>', '113.75px 77.5px')">
-      </div>
-      <!-- LYT-84147 -->
-      <div class="sample" 
-        style="background-image: url('<%= asset_path("floor_image/LYT-84147_4234062_230404_C_01.jpg") %>');" 
-        onclick="showProductInfo('LYT-84147', 'https://www.diy-shop.jp/item.php?cc=0000099936', '<%= asset_path("floor_image/LYT-84147_4234062_230407_R_01.jpg") %>', '<%= asset_path("floor_image/floor.png") %>', '113.75px 77.5px')">
-      </div>
-      <!-- LYT-84148 -->
-      <div class="sample" 
-        style="background-image: url('<%= asset_path("floor_image/LYT-84148_4166821_230404_C_01.jpg") %>');" 
-        onclick="showProductInfo('LYT-84148', 'https://www.diy-shop.jp/item.php?cc=0000099936', '<%= asset_path("floor_image/LYT-84148_4166821_230407_R_01.jpg") %>', '<%= asset_path("floor_image/floor.png") %>', '113.75px 77.5px')">
-      </div>
-      <!-- LYT-84149 -->
-      <div class="sample" 
-        style="background-image: url('<%= asset_path("floor_image/LYT-84149_4166822_230407_C_01.jpg") %>');" 
-        onclick="showProductInfo('LYT-84149', 'https://www.diy-shop.jp/item.php?cc=0000099936', '<%= asset_path("floor_image/LYT-84149_4166822_230407_R_01.jpg") %>', '<%= asset_path("floor_image/floor.png") %>', '113.75px 77.5px')">
-      </div>
-    </div>
+<div class="simulation-container">
+  <!-- シュミレーション -->
+  <div id="preview">
+    <div id="background"></div>
+    <div id="overlay" style="background-image: url('<%= asset_path("first_room.png") %>'); background-size: cover;"></div>
+  </div>
 
-    <script>
-      function changePreview(backgroundImageUrl, overlayImageUrl, backgroundSize) {
-        var background = document.getElementById('background');
-        var overlay = document.getElementById('overlay');
-        background.style.backgroundImage = 'url(' + backgroundImageUrl + ')';
-        overlay.style.backgroundImage = 'url(' + overlayImageUrl + ')';
-        background.style.backgroundSize = backgroundSize; // 背景サイズを動的に変更
-      }
+  <!-- 新しいコンテナ: クリックされた材料の情報を表示 -->
+  <div id="product-info" style="display: none;">
+    <div id="product-sample-image"></div> <!-- サンプル画像を表示 -->
+    <p id="product-number"></p> <!-- 品番を表示 -->
+    <p><a id="product-link" href="" target="_blank">商品リンク</a></p> <!-- 商品リンクを表示 -->
+  </div>
+</div>
 
-      function showProductInfo(productNumber, productLink, backgroundImageUrl, overlayImageUrl, backgroundSize) {
-        changePreview(backgroundImageUrl, overlayImageUrl, backgroundSize);
 
-        var productInfo = document.getElementById('product-info');
-        var productNumberElem = document.getElementById('product-number');
-        var productLinkElem = document.getElementById('product-link');
+<div class="sample-container">
+  <!-- 床材 -->
+  <!-- LH-81314 -->
+  <div class="sample" style="background-image: url('<%= asset_path("floor_image/LH-81314_4191061_220202_C_01.jpg") %>');"
+    data-product-number="LH-81314"
+    data-product-link="https://item.rakuten.co.jp/kabegamiworld/lh81314-81316/"
+    data-background-image-url="<%= asset_path('floor_image/LH-81314_4191061_220202_R_01.jpg') %>"
+    data-overlay-image-url="<%= asset_path('floor_image/floor.png') %>"
+    data-background-size="113.75px 77.5px">
+    
+    <% if logged_in? && current_user %> <!-- ログインしているか確認 -->
+      <% bookmark = current_user.bookmarks.find_by(product_number: 'LH-81314') %>
+      <% if bookmark %>
+        <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
+          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+        <% end %>
+      <% else %>
+        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :product_number, value: 'LH-81314' %>
+          <%= form.hidden_field :product_link, value: 'https://item.rakuten.co.jp/kabegamiworld/lh81314-81316/' %>
+          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+        <% end %>
+      <% end %>
+    <% else %>
+      <p></p>
+    <% end %>
+  </div>
+  <!-- LH-81325 -->
+  <div class="sample" style="background-image: url('<%= asset_path("floor_image/LH-81325_4191067_220202_C_01.jpg") %>');"
+    data-product-number="LH-81325"
+    data-product-link="https://item.rakuten.co.jp/kabegamiworld/lh81325-81326/"
+    data-background-image-url="<%= asset_path('floor_image/LH-81325_4191067_220202_R_01.jpg') %>"
+    data-overlay-image-url="<%= asset_path('floor_image/floor.png') %>"
+    data-background-size="113.75px 77.5px">
+    
+    <% if logged_in? && current_user %> <!-- ログインしているか確認 -->
+      <% bookmark = current_user.bookmarks.find_by(product_number: 'LH-81325') %>
+      <% if bookmark %>
+        <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
+          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+        <% end %>
+      <% else %>
+        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :product_number, value: 'LH-81325' %>
+          <%= form.hidden_field :product_link, value: 'https://item.rakuten.co.jp/kabegamiworld/lh81325-81326/' %>
+          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+        <% end %>
+      <% end %>
+    <% else %>
+      <p></p>
+    <% end %>
+  </div>
+  <!-- LH-81310 -->
+  <div class="sample" style="background-image: url('<%= asset_path("floor_image/LH-81310_4166088_220202_C_01.jpg") %>');"
+    data-product-number="LH-81310"
+    data-product-link="https://item.rakuten.co.jp/kabegamiworld/lh81308-81310/"
+    data-background-image-url="<%= asset_path('floor_image/LH-81310_4166088_220202_R_01.jpg') %>"
+    data-overlay-image-url="<%= asset_path('floor_image/floor.png') %>"
+    data-background-size="113.75px 77.5px">
+    
+    <% if logged_in? && current_user %> <!-- ログインしているか確認 -->
+      <% bookmark = current_user.bookmarks.find_by(product_number: 'LH-81310') %>
+      <% if bookmark %>
+        <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
+          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+        <% end %>
+      <% else %>
+        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :product_number, value: 'LH-81310' %>
+          <%= form.hidden_field :product_link, value: 'https://item.rakuten.co.jp/kabegamiworld/lh81308-81310/' %>
+          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+        <% end %>
+      <% end %>
+    <% else %>
+      <p></p>
+    <% end %>
+  </div>
+  <!-- LH-81309 -->
+  <div class="sample" style="background-image: url('<%= asset_path("floor_image/LH-81309_4166087_220202_C_01.jpg") %>');"
+    data-product-number="LH-81309"
+    data-product-link="https://item.rakuten.co.jp/kabegamiworld/lh81308-81310/"
+    data-background-image-url="<%= asset_path('floor_image/LH-81309_4166087_220202_R_01.jpg') %>"
+    data-overlay-image-url="<%= asset_path('floor_image/floor.png') %>"
+    data-background-size="113.75px 77.5px">
+    
+    <% if logged_in? && current_user %> <!-- ログインしているか確認 -->
+      <% bookmark = current_user.bookmarks.find_by(product_number: 'LH-81309') %>
+      <% if bookmark %>
+        <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
+          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+        <% end %>
+      <% else %>
+        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :product_number, value: 'LH-81309' %>
+          <%= form.hidden_field :product_link, value: 'https://item.rakuten.co.jp/kabegamiworld/lh81308-81310/' %>
+          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+        <% end %>
+      <% end %>
+    <% else %>
+      <p></p>
+    <% end %>
+  </div>
+  <!-- LH-81318 -->
+  <div class="sample" style="background-image: url('<%= asset_path("floor_image/LH-81318_4223062_220202_C_01.jpg") %>');"
+    data-product-number="LH-81318"
+    data-product-link="https://item.rakuten.co.jp/kabegamiworld/lh81317-81318/"
+    data-background-image-url="<%= asset_path('floor_image/LH-81318_4223062_220202_R_01.jpg') %>"
+    data-overlay-image-url="<%= asset_path('floor_image/floor.png') %>"
+    data-background-size="113.75px 77.5px">
+    
+    <% if logged_in? && current_user %> <!-- ログインしているか確認 -->
+      <% bookmark = current_user.bookmarks.find_by(product_number: 'LH-81318') %>
+      <% if bookmark %>
+        <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
+          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+        <% end %>
+      <% else %>
+        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :product_number, value: 'LH-81318' %>
+          <%= form.hidden_field :product_link, value: 'https://item.rakuten.co.jp/kabegamiworld/lh81317-81318/' %>
+          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+        <% end %>
+      <% end %>
+    <% else %>
+      <p></p>
+    <% end %>
+  </div>
+  <!-- LAY-87313 -->
+  <div class="sample" style="background-image: url('<%= asset_path("floor_image/LAY-87313_4107470_220602_C_01.jpg") %>');"
+    data-product-number="LAY-87313"
+    data-product-link="https://www.diy-shop.jp/item.php?cc=0000001028"
+    data-background-image-url="<%= asset_path('floor_image/LAY-87313_4107470_220602_R_01.jpg') %>"
+    data-overlay-image-url="<%= asset_path('floor_image/floor.png') %>"
+    data-background-size="113.75px 77.5px">
+    
+    <% if logged_in? && current_user %> <!-- ログインしているか確認 -->
+      <% bookmark = current_user.bookmarks.find_by(product_number: 'LAY-87313') %>
+      <% if bookmark %>
+        <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
+          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+        <% end %>
+      <% else %>
+        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :product_number, value: 'LAY-87313' %>
+          <%= form.hidden_field :product_link, value: 'https://www.diy-shop.jp/item.php?cc=0000001028' %>
+          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+        <% end %>
+      <% end %>
+    <% else %>
+      <p></p>
+    <% end %>
+  </div>
+  <!-- LAY-87317 -->
+  <div class="sample" style="background-image: url('<%= asset_path("floor_image/LAY-87317_4107474_220602_C_01.jpg") %>');"
+    data-product-number="LAY-87317"
+    data-product-link="https://www.diy-shop.jp/item.php?cc=0000001029"
+    data-background-image-url="<%= asset_path('floor_image/LAY-87317_4107474_220602_R_01.jpg') %>"
+    data-overlay-image-url="<%= asset_path('floor_image/floor.png') %>"
+    data-background-size="113.75px 77.5px">
+    
+    <% if logged_in? && current_user %> <!-- ログインしているか確認 -->
+      <% bookmark = current_user.bookmarks.find_by(product_number: 'LAY-87317') %>
+      <% if bookmark %>
+        <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
+          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+        <% end %>
+      <% else %>
+        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :product_number, value: 'LAY-87317' %>
+          <%= form.hidden_field :product_link, value: 'https://www.diy-shop.jp/item.php?cc=0000001029' %>
+          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+        <% end %>
+      <% end %>
+    <% else %>
+      <p></p>
+    <% end %>
+  </div>
+  <!-- LYT-84147 -->
+  <div class="sample" style="background-image: url('<%= asset_path("floor_image/LYT-84147_4234062_230404_C_01.jpg") %>');"
+    data-product-number="LYT-84147"
+    data-product-link="https://www.diy-shop.jp/item.php?cc=0000099936"
+    data-background-image-url="<%= asset_path('floor_image/LYT-84147_4234062_230407_R_01.jpg') %>"
+    data-overlay-image-url="<%= asset_path('floor_image/floor.png') %>"
+    data-background-size="113.75px 77.5px">
+    
+    <% if logged_in? && current_user %> <!-- ログインしているか確認 -->
+      <% bookmark = current_user.bookmarks.find_by(product_number: 'LYT-84147') %>
+      <% if bookmark %>
+        <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
+          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+        <% end %>
+      <% else %>
+        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :product_number, value: 'LYT-84147' %>
+          <%= form.hidden_field :product_link, value: 'https://www.diy-shop.jp/item.php?cc=0000099936' %>
+          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+        <% end %>
+      <% end %>
+    <% else %>
+      <p></p>
+    <% end %>
+  </div>
+  <!-- LYT-84148 -->
+  <div class="sample" style="background-image: url('<%= asset_path("floor_image/LYT-84148_4166821_230404_C_01.jpg") %>');"
+    data-product-number="LYT-84148"
+    data-product-link="https://www.diy-shop.jp/item.php?cc=0000099936"
+    data-background-image-url="<%= asset_path('floor_image/LYT-84148_4166821_230407_R_01.jpg') %>"
+    data-overlay-image-url="<%= asset_path('floor_image/floor.png') %>"
+    data-background-size="113.75px 77.5px">
+    
+    <% if logged_in? && current_user %> <!-- ログインしているか確認 -->
+      <% bookmark = current_user.bookmarks.find_by(product_number: 'LYT-84148') %>
+      <% if bookmark %>
+        <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
+          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+        <% end %>
+      <% else %>
+        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :product_number, value: 'LYT-84148' %>
+          <%= form.hidden_field :product_link, value: 'https://www.diy-shop.jp/item.php?cc=0000099936' %>
+          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+        <% end %>
+      <% end %>
+    <% else %>
+      <p></p>
+    <% end %>
+  </div>
+  <!-- LYT-84149 -->
+  <div class="sample" style="background-image: url('<%= asset_path("floor_image/LYT-84149_4166822_230407_C_01.jpg") %>');"
+    data-product-number="LYT-84149"
+    data-product-link="https://www.diy-shop.jp/item.php?cc=0000099936"
+    data-background-image-url="<%= asset_path('floor_image/LYT-84149_4166822_230407_R_01.jpg') %>"
+    data-overlay-image-url="<%= asset_path('floor_image/floor.png') %>"
+    data-background-size="113.75px 77.5px">
+    
+    <% if logged_in? && current_user %> <!-- ログインしているか確認 -->
+      <% bookmark = current_user.bookmarks.find_by(product_number: 'LYT-84149') %>
+      <% if bookmark %>
+        <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
+          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+        <% end %>
+      <% else %>
+        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :product_number, value: 'LYT-84149' %>
+          <%= form.hidden_field :product_link, value: 'https://www.diy-shop.jp/item.php?cc=0000099936' %>
+          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+        <% end %>
+      <% end %>
+    <% else %>
+      <p></p>
+    <% end %>
+  </div>
+</div>
 
-        productNumberElem.textContent = '品番: ' + productNumber;
-        productLinkElem.href = productLink;
+<script>
 
-        // 隠しフィールドにデータをセット
-        document.getElementById('hidden-product-number').value = productNumber;
-        document.getElementById('hidden-product-link').value = productLink;
-        document.getElementById('hidden-product-image').value = backgroundImageUrl;
+document.querySelectorAll('.sample').forEach(function(sample) {
+  sample.addEventListener('click', function() {
+    var backgroundImageUrl = sample.dataset.backgroundImageUrl;
+    var overlayImageUrl = sample.dataset.overlayImageUrl;
+    var backgroundSize = sample.dataset.backgroundSize;
+    var productNumber = sample.dataset.productNumber;
+    var productLink = sample.dataset.productLink;
 
-        productInfo.style.display = 'block'; // 商品情報を表示
+    // プレビューを更新
+    changePreview(backgroundImageUrl, overlayImageUrl, backgroundSize);
+
+    // サンプル画像、品番、リンクを表示する
+    showProductInfo(productNumber, productLink, backgroundImageUrl);
+
+    // ハートマークに商品番号とリンクを設定
+      var bookmarkHeart = document.getElementById('bookmark-heart');
+      bookmarkHeart.dataset.productNumber = productNumber;
+      bookmarkHeart.dataset.productLink = productLink;
+  });
+});
+
+
+
+function changePreview(backgroundImageUrl, overlayImageUrl, backgroundSize) {
+  var background = document.getElementById('background');
+  var overlay = document.getElementById('overlay');
+  
+  background.style.backgroundImage = 'url(' + backgroundImageUrl + ')';
+  background.style.backgroundSize = backgroundSize;
+  
+  overlay.style.backgroundImage = 'url(' + overlayImageUrl + ')';
+  overlay.style.backgroundSize = 'cover';
 }
 
-    </script>
-    
+function showProductInfo(productNumber, productLink, sampleImageUrl) {
+  var productInfo = document.getElementById('product-info');
+  var productSampleImage = document.getElementById('product-sample-image');
+  var productNumberElem = document.getElementById('product-number');
+  var productLinkElem = document.getElementById('product-link');
 
+  // サンプル画像を設定
+  productSampleImage.style.backgroundImage = 'url(' + sampleImageUrl + ')';
+  productSampleImage.style.backgroundSize = 'cover'; // 適宜サイズを調整
+
+  // 品番とリンクを表示
+  productNumberElem.textContent = '品番: ' + productNumber;
+  productLinkElem.href = productLink;
+
+  // コンテナを表示
+  productInfo.style.display = 'block';
+}
+
+</script>
