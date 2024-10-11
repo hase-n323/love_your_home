@@ -1,17 +1,19 @@
-<header class="bg-gray-100 shadow-md">
+<header class="bg-gray-100 shadow-md sticky top-0 z-50">
   <div class="container mx-auto px-6 py-4 flex items-center justify-between">
     <!-- Logo or Title with Link -->
-    <h1 class="text-2xl font-bold text-gray-800">
-      <%= link_to t('header.title'), root_path, class: "text-gray-800 hover:text-gray-600" %>
+    <h1 class="text-3xl font-bold text-gray-800">
+      <%= link_to t('header.title'), root_path, class: "text-gray-800 hover:text-gray-600 transition-colors duration-200" %>
     </h1>
-    
-    <!-- Navigation Links -->
-    <nav class="flex space-x-4">
-      <%= link_to t('header.logout'), logout_path, class: "text-white bg-gray-500 hover:bg-gray-600 font-semibold py-2 px-4 rounded shadow", data: { turbo_method: :delete } %>
+
+    <!-- Navigation Links (centered) -->
+    <nav class="flex space-x-8 text-gray-700">
+      <%= link_to "シュミレーション", simulator_path, class: "hover:text-gray-500 text-lg font-medium transition-colors duration-200" %>
+      <%= link_to "ブックマーク一覧", bookmarks_path, class: "hover:text-gray-500 text-lg font-medium transition-colors duration-200" %>
     </nav>
 
-    <nav class="flex space-x-4">
-      <%= link_to "ブックマーク一覧", bookmarks_path %>
-    </nav>
+    <!-- User Actions (Logout) -->
+    <div class="flex items-center space-x-4">
+      <%= link_to t('header.logout'), logout_path, class: "text-white bg-gray-500 hover:bg-gray-600 font-semibold py-2 px-4 rounded shadow", data: { turbo_method: :delete } %>
+    </div>
   </div>
 </header>
