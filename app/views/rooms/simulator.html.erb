@@ -18,9 +18,10 @@
           <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
         <% end %>
       <% else %>
-        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+        <%= form_with url: bookmarks_path, method: :post, local: true, scope: :bookmark do |form| %>
           <%= form.hidden_field :product_number, value: '140/1110 布地調の無地グレー' %>
           <%= form.hidden_field :product_link, value: 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-140' %>
+          <%= form.hidden_field :product_image_url, value: asset_path('wallpaper_image/140_02.jpg') %> <!-- 画像URLを送信 -->
           <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
@@ -43,9 +44,10 @@
           <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
         <% end %>
       <% else %>
-        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+        <%= form_with url: bookmarks_path, method: :post, local: true, scope: :bookmark do |form| %>
           <%= form.hidden_field :product_number, value: '171/1271 漆喰調のパステルグリーン' %>
           <%= form.hidden_field :product_link, value: 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-171' %>
+           <%= form.hidden_field :product_image_url, value: asset_path('wallpaper_image/171_thumb02.jpg') %> <!-- 画像URLを送信 -->
           <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
@@ -68,9 +70,10 @@
           <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
         <% end %>
       <% else %>
-        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+        <%= form_with url: bookmarks_path, method: :post, local: true, scope: :bookmark do |form| %>
           <%= form.hidden_field :product_number, value: '172/1272 漆喰調のパステルピンク' %>
           <%= form.hidden_field :product_link, value: 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-172' %>
+          <%= form.hidden_field :product_image_url, value: asset_path('wallpaper_image/172_thumb02.jpg') %> <!-- 画像URLを送信 -->
           <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
@@ -93,9 +96,10 @@
           <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
         <% end %>
       <% else %>
-        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+        <%= form_with url: bookmarks_path, method: :post, local: true, scope: :bookmark do |form| %>
           <%= form.hidden_field :product_number, value: '173/1273 漆喰調のパステルラベンダー' %>
           <%= form.hidden_field :product_link, value: 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-172' %>
+          <%= form.hidden_field :product_image_url, value: asset_path('wallpaper_image/173_thumb02.jpg') %> <!-- 画像URLを送信 -->
           <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
@@ -118,9 +122,10 @@
           <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
         <% end %>
       <% else %>
-        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+        <%= form_with url: bookmarks_path, method: :post, local: true, scope: :bookmark do |form| %>
           <%= form.hidden_field :product_number, value: '174/1274 漆喰調のパウダーブルー' %>
           <%= form.hidden_field :product_link, value: 'https://www.reform-myhome.com/fs/reformmyhome/rilm_muji/rilm-cut-174' %>
+          <%= form.hidden_field :product_image_url, value: asset_path('wallpaper_image/174_thumb02.jpg') %> <!-- 画像URLを送信 -->
           <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
@@ -140,13 +145,14 @@
       <% bookmark = current_user.bookmarks.find_by(product_number: '508 レンガブラウン') %>
       <% if bookmark %>
         <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
-          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+          <%= form.submit "❤︎", class: "custom-heart" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
         <% end %>
       <% else %>
-        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+        <%= form_with url: bookmarks_path, method: :post, local: true, scope: :bookmark do |form| %>
           <%= form.hidden_field :product_number, value: '508 レンガブラウン' %>
           <%= form.hidden_field :product_link, value: 'https://www.reform-myhome.com/fs/reformmyhome/rilm_brick/rilm-cut-508' %>
-          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+          <%= form.hidden_field :product_image_url, value: asset_path('wallpaper_image/508_thumb02.jpg') %> <!-- 画像URLを送信 -->
+          <%= form.submit "♡", class: "custom-heart" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
     <% else %>
@@ -165,13 +171,14 @@
       <% bookmark = current_user.bookmarks.find_by(product_number: '737 ボタニカルノーチェ') %>
       <% if bookmark %>
         <%= form_with url: bookmark_path(bookmark), method: :delete, local: true do |form| %>
-          <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
+          <%= form.submit "❤︎", class: "custom-heart" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
         <% end %>
       <% else %>
-        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+        <%= form_with url: bookmarks_path, method: :post, local: true, scope: :bookmark do |form| %>
           <%= form.hidden_field :product_number, value: '737 ボタニカルノーチェ' %>
           <%= form.hidden_field :product_link, value: 'https://www.reform-myhome.com/fs/reformmyhome/rilm_pattern/rilm-cut-737' %>
-          <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
+          <%= form.hidden_field :product_image_url, value: asset_path('wallpaper_image/737_thumb02.jpg') %> <!-- 画像URLを送信 -->
+          <%= form.submit "♡", class: "custom-heart" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
     <% else %>
@@ -193,9 +200,10 @@
           <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
         <% end %>
       <% else %>
-        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+        <%= form_with url: bookmarks_path, method: :post, local: true, scope: :bookmark do |form| %>
           <%= form.hidden_field :product_number, value: '317 木目柄グレインホワイト' %>
           <%= form.hidden_field :product_link, value: 'https://www.reform-myhome.com/fs/reformmyhome/rilm_wood/rilm-cut-317' %>
+          <%= form.hidden_field :product_image_url, value: asset_path('wallpaper_image/317_thumb02.jpg') %> <!-- 画像URLを送信 -->
           <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
@@ -237,9 +245,10 @@
           <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
         <% end %>
       <% else %>
-        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+        <%= form_with url: bookmarks_path, method: :post, local: true, scope: :bookmark do |form| %>
           <%= form.hidden_field :product_number, value: 'LH-81314' %>
           <%= form.hidden_field :product_link, value: 'https://item.rakuten.co.jp/kabegamiworld/lh81314-81316/' %>
+          <%= form.hidden_field :product_image_url, value: asset_path('floor_image/LH-81314_4191061_220202_C_01.jpg') %> <!-- 画像URLを送信 -->
           <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
@@ -262,9 +271,10 @@
           <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
         <% end %>
       <% else %>
-        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+        <%= form_with url: bookmarks_path, method: :post, local: true, scope: :bookmark do |form| %>
           <%= form.hidden_field :product_number, value: 'LH-81325' %>
           <%= form.hidden_field :product_link, value: 'https://item.rakuten.co.jp/kabegamiworld/lh81325-81326/' %>
+          <%= form.hidden_field :product_image_url, value: asset_path('floor_image/LH-81325_4191067_220202_C_01.jpg') %> <!-- 画像URLを送信 -->
           <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
@@ -287,9 +297,10 @@
           <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
         <% end %>
       <% else %>
-        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+        <%= form_with url: bookmarks_path, method: :post, local: true, scope: :bookmark do |form| %>
           <%= form.hidden_field :product_number, value: 'LH-81310' %>
           <%= form.hidden_field :product_link, value: 'https://item.rakuten.co.jp/kabegamiworld/lh81308-81310/' %>
+          <%= form.hidden_field :product_image_url, value: asset_path('floor_image/LH-81310_4166088_220202_C_01.jpg') %> <!-- 画像URLを送信 -->
           <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
@@ -312,9 +323,10 @@
           <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
         <% end %>
       <% else %>
-        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+        <%= form_with url: bookmarks_path, method: :post, local: true, scope: :bookmark do |form| %>
           <%= form.hidden_field :product_number, value: 'LH-81309' %>
           <%= form.hidden_field :product_link, value: 'https://item.rakuten.co.jp/kabegamiworld/lh81308-81310/' %>
+          <%= form.hidden_field :product_image_url, value: asset_path('floor_image/LH-81309_4166087_220202_C_01.jpg') %> <!-- 画像URLを送信 -->
           <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
@@ -337,9 +349,10 @@
           <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
         <% end %>
       <% else %>
-        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+        <%= form_with url: bookmarks_path, method: :post, local: true, scope: :bookmark do |form| %>
           <%= form.hidden_field :product_number, value: 'LH-81318' %>
           <%= form.hidden_field :product_link, value: 'https://item.rakuten.co.jp/kabegamiworld/lh81317-81318/' %>
+          <%= form.hidden_field :product_image_url, value: asset_path('floor_image/LH-81318_4223062_220202_C_01.jpg') %> <!-- 画像URLを送信 -->
           <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
@@ -362,9 +375,10 @@
           <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
         <% end %>
       <% else %>
-        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+        <%= form_with url: bookmarks_path, method: :post, local: true, scope: :bookmark do |form| %>
           <%= form.hidden_field :product_number, value: 'LAY-87313' %>
           <%= form.hidden_field :product_link, value: 'https://www.diy-shop.jp/item.php?cc=0000001028' %>
+          <%= form.hidden_field :product_image_url, value: asset_path('floor_image/LAY-87313_4107470_220602_C_01.jpg') %> <!-- 画像URLを送信 -->
           <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
@@ -387,9 +401,10 @@
           <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
         <% end %>
       <% else %>
-        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+        <%= form_with url: bookmarks_path, method: :post, local: true, scope: :bookmark do |form| %>
           <%= form.hidden_field :product_number, value: 'LAY-87317' %>
           <%= form.hidden_field :product_link, value: 'https://www.diy-shop.jp/item.php?cc=0000001029' %>
+          <%= form.hidden_field :product_image_url, value: asset_path('floor_image/LAY-87317_4107474_220602_C_01.jpg') %> <!-- 画像URLを送信 -->
           <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
@@ -412,9 +427,10 @@
           <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
         <% end %>
       <% else %>
-        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+        <%= form_with url: bookmarks_path, method: :post, local: true, scope: :bookmark do |form| %>
           <%= form.hidden_field :product_number, value: 'LYT-84147' %>
           <%= form.hidden_field :product_link, value: 'https://www.diy-shop.jp/item.php?cc=0000099936' %>
+          <%= form.hidden_field :product_image_url, value: asset_path('floor_image/LYT-84147_4234062_230404_C_01.jpg') %> <!-- 画像URLを送信 -->
           <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
@@ -437,9 +453,10 @@
           <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
         <% end %>
       <% else %>
-        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+        <%= form_with url: bookmarks_path, method: :post, local: true, scope: :bookmark do |form| %>
           <%= form.hidden_field :product_number, value: 'LYT-84148' %>
           <%= form.hidden_field :product_link, value: 'https://www.diy-shop.jp/item.php?cc=0000099936' %>
+          <%= form.hidden_field :product_image_url, value: asset_path('floor_image/LYT-84148_4166821_230404_C_01.jpg') %> <!-- 画像URLを送信 -->
           <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
@@ -462,9 +479,10 @@
           <%= form.submit "❤︎" %> <!-- ブックマーク済みの場合、削除フォームを表示 -->
         <% end %>
       <% else %>
-        <%= form_with url: bookmarks_path, method: :post, local: true do |form| %>
+        <%= form_with url: bookmarks_path, method: :post, local: true, scope: :bookmark do |form| %>
           <%= form.hidden_field :product_number, value: 'LYT-84149' %>
           <%= form.hidden_field :product_link, value: 'https://www.diy-shop.jp/item.php?cc=0000099936' %>
+          <%= form.hidden_field :product_image_url, value: asset_path('floor_image/LYT-84149_4166822_230407_C_01.jpg') %> <!-- 画像URLを送信 -->
           <%= form.submit "♡" %> <!-- 未ブックマークの場合、追加フォームを表示 -->
         <% end %>
       <% end %>
