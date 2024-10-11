@@ -9,5 +9,9 @@
     <nav class="flex space-x-4">
       <%= link_to t('header.logout'), logout_path, class: "text-white bg-gray-500 hover:bg-gray-600 font-semibold py-2 px-4 rounded shadow", data: { turbo_method: :delete } %>
     </nav>
+
+    <nav class="flex space-x-4">
+      <%= link_to "ブックマーク一覧", bookmarks_path %>
+    </nav>
   </div>
 </header>

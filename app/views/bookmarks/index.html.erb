@@ -1,9 +1,18 @@
-<h1>ブックマーク一覧</h1>
+<h1 class="text-3xl font-bold text-center mb-8 my-2.5">ブックマーク一覧</h1>
 
-<% @bookmarks.each do |bookmark| %>
-  <div class="bookmark">
-    <p>品番: <%= bookmark.product_number %></p>
-    <a href="<%= bookmark.product_link %>" target="_blank">商品情報</a>
-    <img src="<%= bookmark.product_image %>" alt="Product Image">
-  </div>
-<% end %>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto max-w-6xl">
+  <% @bookmarks.each do |bookmark| %>
+    <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-300">
+      <% if bookmark.product_image_url.present? %>
+        <img src="<%= bookmark.product_image_url %>" alt="サンプル画像" class="w-full h-48 object-cover rounded-md mb-4">
+      <% else %>
+        <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-500 mb-4">
+          <p>画像がありません</p>
+        </div>
+      <% end %>
+
+      <p class="text-lg font-semibold mb-2">品番: <%= bookmark.product_number %></p>
+      <a href="<%= bookmark.product_link %>" target="_blank" class="text-blue-500 hover:text-blue-700 transition-colors">商品リンク</a>
+    </div>
+  <% end %>
+</div>
