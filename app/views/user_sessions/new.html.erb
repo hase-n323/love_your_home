@@ -1,5 +1,6 @@
+<% content_for(:title, t('.title')) %>
 <div class="max-w-lg mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
-  <h1 class="text-2xl font-semibold text-gray-800 text-center mb-6"><%= t('.login') %></h1>
+  <h1 class="text-2xl font-semibold text-gray-800 text-center mb-6"><%= t('.title') %></h1>
   <%= form_with url: login_path, class: "space-y-6" do |f| %>
     <div>
       <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
@@ -12,7 +13,7 @@
     </div>
 
     <div class="text-center">
-      <%= f.submit t('.login'), class: "w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md transition duration-200" %>
+      <%= f.submit t('.title'), class: "w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md transition duration-200" %>
     </div>
   <% end %>
 
