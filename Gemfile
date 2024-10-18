@@ -1,5 +1,11 @@
 source "https://rubygems.org"
 
+# 開発用Gem
+# group :development do
+#   gem 'letter_opener'
+#   gem 'letter_opener_web'
+# end
+
 gem "sorcery"
 
 gem 'rails-i18n', '~> 7.0.0'

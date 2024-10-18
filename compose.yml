@@ -27,6 +27,8 @@ services:
       - node_modules:/myapp/node_modules
     environment:
       TZ: Asia/Tokyo
+      # RAILS_ENV: development # 開発環境用
+      RAILS_ENV: production #　本番環境用
     ports:
       - "3000:3000"
     depends_on:
