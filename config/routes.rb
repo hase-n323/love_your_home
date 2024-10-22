@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "password_resets/create"
+  get "password_resets/edit"
+  get "password_resets/update"
 
   root 'rooms#top'
   get 'simulator', to: 'rooms#simulator'
@@ -11,5 +14,5 @@ Rails.application.routes.draw do
   delete 'logout', to: 'user_sessions#destroy'
 
   resources :bookmarks, only: [:index, :create, :destroy]
-
+  resources :password_resets, only: [:new, :create, :edit, :update]
 end
