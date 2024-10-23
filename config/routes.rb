@@ -1,10 +1,4 @@
 Rails.application.routes.draw do
-
-  if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: "/letter_opener"
-  end  
-
-  get "password_resets/new"
   get "password_resets/create"
   get "password_resets/edit"
   get "password_resets/update"
@@ -20,7 +14,5 @@ Rails.application.routes.draw do
   delete 'logout', to: 'user_sessions#destroy'
 
   resources :bookmarks, only: [:index, :create, :destroy]
-
-  resources :password_resets, only: %i[new create edit update]
- 
+  resources :password_resets, only: [:new, :create, :edit, :update]
 end

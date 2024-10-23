@@ -34,14 +34,14 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
-  # メールを送信する方法を指定している。:letter_opener_web を設定することで、実際にメールを送るのではなく、開発環境でメールの内容をブラウザで確認できるようにする
-  config.action_mailer.delivery_method = :letter_opener_web
-  # メールが実際に送信されるかどうかを決めるもの。true に設定することで、delivery_method に指定した方法（この場合は letter_opener_web）を使って、メールの送信を実行するんだ。これが false だと、メールは送信されず、ログに記録されるだけになる
-  config.action_mailer.perform_deliveries = true
-  # メールの送信に失敗した場合にエラーを発生させるかどうかを決めるもの。true にすることで、メールの送信が失敗したときに、エラーが発生して通知される。これにより、問題をすぐに把握できるから、デバッグがしやすくなる
-  config.action_mailer.raise_delivery_errors = true
-  # 生成されるURLのデフォルトのホスト名とポートを指定するものだ。ここでは、localhost（自分のコンピュータ）をホスト名、3000 をポート番号に指定しているカ。これにより、メール内のリンクが正しく機能するようになる
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  # Don't care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = false
+
+  # Disable caching for Action Mailer templates even if Action Controller
+  # caching is enabled.
+  config.action_mailer.perform_caching = false
+
+  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

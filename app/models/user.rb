@@ -1,7 +1,5 @@
 class User < ApplicationRecord
-  authenticates_with_sorcery! do |config|
-    config.submodules = [:reset_password]  # モジュールを再定義
-  end
+  authenticates_with_sorcery!
 
   # ユーザーが複数のsimulatorsレコードを持つことを示しています
   has_many :simulators, dependent: :destroy
@@ -14,7 +12,6 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
   # email：値が空でないこと・ユニークな値であること
   validates :email, presence: true, uniqueness: true
+  validates :reset_password_token, presence: true, uniqueness: true, allow_nil: true
 
-  # reset_password_token という属性がユニークであり、かつ nil の場合は特に制約がないことを示している
-  validates :reset_password_token, uniqueness: true, allow_nil: true
 end

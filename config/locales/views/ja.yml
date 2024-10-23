@@ -8,24 +8,6 @@ ja:
       email: メールアドレス
       password: パスワード
       password_confirmation: パスワード確認
-  defaults:
-    create: 作成
-    post: 投稿
-    search_word: 検索ワード
-    edit: 編集
-    delete_confirm: 削除しますか？
-    password_reset: パスワードリセット
-    flash_message:
-  password_resets:
-    new:
-      title: パスワードリセット申請
-      submit: 送信
-    edit:
-      title: パスワードリセット
-    create:
-      success: パスワードリセット手順を送信しました
-    update:
-      success: パスワードを変更しました
   user_sessions:
     new:
       title: ログイン
