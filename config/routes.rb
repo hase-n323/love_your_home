@@ -17,4 +17,6 @@ Rails.application.routes.draw do
 
   resources :bookmarks, only: [:index, :create, :destroy]
   resources :password_resets, only: [:new, :create, :edit, :update]
+
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end
