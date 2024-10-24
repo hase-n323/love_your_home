@@ -1,5 +1,13 @@
 source "https://rubygems.org"
 
+group :development do
+  gem 'letter_opener_web'
+end
+
+gem 'dotenv-rails'
+
+gem 'config'
+
 gem "sorcery"
 
 gem 'rails-i18n', '~> 7.0.0'

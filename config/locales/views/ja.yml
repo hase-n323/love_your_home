@@ -8,6 +8,8 @@ ja:
       email: メールアドレス
       password: パスワード
       password_confirmation: パスワード確認
+  defaults:
+    password_reset: パスワードリセット
   user_sessions:
     new:
       title: ログイン
@@ -33,3 +35,13 @@ ja:
       title: プライバシーポリシー
     terms_of_service:
       titile: 利用規約
+  password_resets:
+    new:
+      title: パスワードリセット申請
+      submit: 送信
+    edit:
+      title: パスワードリセット
+    create:
+      success: パスワードリセット手順を送信しました
+    update:
+      success: パスワードを変更しました
