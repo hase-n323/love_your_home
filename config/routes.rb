@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'terms_of_service', to: 'pages#terms_of_service'
   get 'privacy_policy', to: 'pages#privacy_policy'
   get "password_resets/create"
   get "password_resets/edit"
